@@ -16,6 +16,17 @@ struct uint1024_t from_uint(unsigned int x) {
     }
     return res;
 }
+struct uint1024_t add_op(struct uint1024_t x, struct uint1024_t y) {
+    struct uint1024_t res = from_uint(0);
+    for (int i = 0; i < SIZE; i++) {
+        short buffer = x.data[i] + y.data[i] + res.data[i];
+        res.data[i] = buffer % 256;
+        res.data[i] = buffer % 256;
+        if (i + 1 < SIZE)
+            res.data[i + 1] += buffer / 256;
+    }
+    return res;
+}
 void printAll(struct uint1024_t x) {
     for (int i = 0; i < SIZE; i++)
         printf("%d ", x.data[i]);
@@ -23,9 +34,5 @@ void printAll(struct uint1024_t x) {
 }
 
 int main() {
-    struct uint1024_t a, b;
-    scanf_value(&a);
-    scanf_value(&b);
-    struct uint1024_t c = div_op(a, b);
-    printf_value(c);
+  
 }
