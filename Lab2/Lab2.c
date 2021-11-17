@@ -36,6 +36,39 @@ struct uint1024_t negative(struct uint1024_t x) {
 struct uint1024_t subtr_op(struct uint1024_t x, struct uint1024_t y) {
     return add_op(x, negative(y));
 }
+struct uint1024_t mult_simple(struct uint1024_t x, short y) {
+    struct uint1024_t res = from_uint(0);
+    for (int i = 0; i < SIZE; i++) {
+        short buffer = res.data[i] + x.data[i] * y;
+        res.data[i] = buffer % 256;
+        if (i + 1 < SIZE)
+            res.data[i + 1] = buffer / 256;
+    }
+    return res;
+}
+
+struct uint1024_t digit_shift(struct uint1024_t x, short y) {
+    for (int i = SIZE - 1 - y; i >= 0; i--)
+        x.data[i + y] = x.data[i];
+    for (int i = 0; i < y; i++)
+        x.data[i] = 0;
+    return x;
+}
+
+struct uint1024_t digit_shift_s(struct uint1024_t x, short y) {
+    for (int i = 0; i < SIZE - y; i++)
+        x.data[i] = x.data[i + y];
+    for (int i = SIZE - y; i < SIZE; i++)
+        x.data[i] = 0;
+    return x;
+}
+
+struct uint1024_t mult_op(struct uint1024_t x, struct uint1024_t y) {
+    struct uint1024_t res = from_uint(0);
+    for (int i = 0; i < SIZE; i++)
+        res = add_op(res, digit_shift(mult_simple(x, y.data[i]), i));
+    return res;
+}
 void printAll(struct uint1024_t x) {
     for (int i = 0; i < SIZE; i++)
         printf("%d ", x.data[i]);
