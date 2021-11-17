@@ -27,6 +27,15 @@ struct uint1024_t add_op(struct uint1024_t x, struct uint1024_t y) {
     }
     return res;
 }
+struct uint1024_t negative(struct uint1024_t x) {
+    for (int i = 0; i < SIZE; i++)
+        x.data[i] ^= 255;
+    return add_op(x, from_uint(1));
+}
+
+struct uint1024_t subtr_op(struct uint1024_t x, struct uint1024_t y) {
+    return add_op(x, negative(y));
+}
 void printAll(struct uint1024_t x) {
     for (int i = 0; i < SIZE; i++)
         printf("%d ", x.data[i]);
