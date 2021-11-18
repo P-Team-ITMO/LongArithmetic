@@ -69,6 +69,23 @@ struct uint1024_t mult_op(struct uint1024_t x, struct uint1024_t y) {
         res = add_op(res, digit_shift(mult_simple(x, y.data[i]), i));
     return res;
 }
+short isBigger(struct uint1024_t x, struct uint1024_t y) {
+    for (int i = SIZE - 1; i >= 0; i--) {
+        if (x.data[i] == y.data[i])
+            continue;
+        if (x.data[i] > y.data[i])
+            return 1;
+        return 0;
+    }
+    return 0;
+}
+short len(struct uint1024_t x) {
+    for (int i = SIZE - 1; i >= 0; i--)
+        if (x.data[i] > 0)
+            return i + 1;
+    return 0;
+}
+
 void printAll(struct uint1024_t x) {
     for (int i = 0; i < SIZE; i++)
         printf("%d ", x.data[i]);
