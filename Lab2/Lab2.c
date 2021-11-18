@@ -85,7 +85,23 @@ short len(struct uint1024_t x) {
             return i + 1;
     return 0;
 }
-
+struct uint1024_t div_op(struct uint1024_t x, struct uint1024_t y) {
+    struct uint1024_t res = from_uint(0);
+    for (int i = 0; i < SIZE; i++) {
+        short digits = i + 1;
+        struct uint1024_t cutted = digit_shift_s(x, SIZE - digits);
+        if (isBigger(y, cutted))
+            continue;
+        short digit = 0;
+        while (!isBigger(mult_simple(y, digit), cutted))
+            digit++;
+        digit--;
+        struct uint1024_t sub_res = digit_shift(mult_simple(y, digit), SIZE - 1 - i);
+        x = subtr_op(x, sub_res);
+        res.data[SIZE - 1 - i] = digit;
+    }
+    return res;
+}
 void printAll(struct uint1024_t x) {
     for (int i = 0; i < SIZE; i++)
         printf("%d ", x.data[i]);
