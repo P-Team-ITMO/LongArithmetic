@@ -158,6 +158,21 @@ void printf_value(struct uint1024_t x) {
     for (int i = getStrLen(to_out) - 1; i >= 0; i--)
         printf("%c", to_out[i]);
 }
+
+
+
+void scanf_value(struct uint1024_t *x) {
+    char s[310];
+    for (int i = 0; i < 310; i++)
+        s[i] = 0;
+    scanf("%s", &s);
+    struct uint1024_t q = from_uint(0);
+    for (int i = 0; i < getStrLen(s); i++)
+        q = add_op(mult_simple(q, 10), from_uint(s[i] - '0'));
+    for (int i = 0; i < SIZE; i++)
+        x->data[i] = q.data[i];
+}
+
 void printAll(struct uint1024_t x) {
     for (int i = 0; i < SIZE; i++)
         printf("%d ", x.data[i]);
