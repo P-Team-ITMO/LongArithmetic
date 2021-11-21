@@ -17,5 +17,11 @@ int main(int argc, char *argv[])
 			bytes++; 
 		printf("%d", bytes);
 	}
+	else if (strncmp(argv[1], "-w") == 0 || strncmp(argv[1], "--words") == 0)
+		{
+			while (fscanf(file, "%s", f) != EOF)
+				words++;
+			printf("%d", words);
+		}
 	return 0;
 }
