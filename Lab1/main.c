@@ -25,5 +25,11 @@ int main(int argc, char *argv[])
 			lines++;
 		printf("%d",lines);
 	}
+	else if (strcmp(argv[1], "-w") == 0 || strcmp(argv[1], "--words") == 0)
+		{
+			while (fscanf(file, "%s", f) != EOF)
+				words++;
+			printf("%d", words);
+		}
 	return 0;
 }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 #define SIZE 32
 
@@ -143,7 +144,7 @@ short getStrLen(char *s) {
 
 void printf_value(struct uint1024_t x) {
     if (isZero(x)) {
-        printf("0");
+        printf("0\n");
         return;
     }
     char to_out[310];
@@ -157,20 +158,29 @@ void printf_value(struct uint1024_t x) {
     }
     for (int i = getStrLen(to_out) - 1; i >= 0; i--)
         printf("%c", to_out[i]);
+    printf("\n");
 }
 
-
-
-void scanf_value(struct uint1024_t *x) {
-    char s[310];
-    for (int i = 0; i < 310; i++)
-        s[i] = 0;
-    scanf("%s", &s);
+void sscanf_value(char *s, struct uint1024_t *x) {
+    s = strpbrk(s, "0123456789");
     struct uint1024_t q = from_uint(0);
-    for (int i = 0; i < getStrLen(s); i++)
+    for (int i = 0; i < strlen(s); i++)
         q = add_op(mult_simple(q, 10), from_uint(s[i] - '0'));
     for (int i = 0; i < SIZE; i++)
         x->data[i] = q.data[i];
+}
+
+
+void fscanf_value(FILE *file, struct uint1024_t *x) {
+    char s[310];
+    memset(s, 0, 310);
+    fgets(s, 310, file);
+    strtok(s, "\n");
+    sscanf_value(s, x);
+}
+
+void scanf_value(struct uint1024_t *x) {
+    fscanf_value(stdout, x);
 }
 
 void printAll(struct uint1024_t x) {
@@ -179,10 +189,17 @@ void printAll(struct uint1024_t x) {
     printf("\n");
 }
 
-int main() {
+int main(int argc, char **argv) {
     struct uint1024_t a, b;
-    scanf_value(&a);
-    scanf_value(&b);
-    struct uint1024_t c = div_op(a, b);
+    sscanf_value(argv[1], &a);
+    sscanf_value(argv[3], &b);
+    struct uint1024_t c;
+    switch (argv[2][0]) {
+        case '+': c = add_op(a, b); break;
+        case '-': c = subtr_op(a, b); break;
+        case '/': c = div_op(a, b); break;
+        case '%': c = mod_op(a, b); break;
+        case '.': c = mult_op(a, b); break;
+    }
     printf_value(c);
 }

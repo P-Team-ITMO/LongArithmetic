@@ -1,6 +1,9 @@
 #!/bin/sh
 echo Building WordCount...
-gcc main.c || (echo Build Failed. Exiting...; exit 1)
+if ! gcc main.c; then 
+	echo -e "Build \e[31;1mFailed\e[0m. \e[33mExiting...\e[0m"
+	exit 1
+fi
 
 # set to false if checking for bytes is not needed
 CHECK_BYTES=true
