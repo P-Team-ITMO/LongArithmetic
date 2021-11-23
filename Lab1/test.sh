@@ -9,10 +9,10 @@ fi
 CHECK_BYTES=true
 BYTES_EXPECTED=(83 57 0 45)
 # same for lines
-CHECK_LINES=false
-LINES_EXPECTED=(3 1 9 8)
+CHECK_LINES=true
+LINES_EXPECTED=(3 1 0 8)
 # ...and for words
-CHECK_WORDS=false
+CHECK_WORDS=true
 WORDS_EXPECTED=(13 13 0 5)
 
 echo -n "Check for: "
@@ -34,7 +34,6 @@ for testfile in tests/test?.txt; do
 	fi
 	if [[ $CHECK_LINES = true ]]; then
 		lines=$(./a.out -l $testfile)
-		lines=0
 		[ $lines -eq ${LINES_EXPECTED[$i]} ] || passed=false
 	fi
 	if [[ $passed = true ]]; then
