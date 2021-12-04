@@ -26,5 +26,5 @@ jobs:
         working-directory: Lab3
         run: | 
           rm NASA_access_log_Jul95
-          wget https://github.com/P-Team-ITMO/LongArithmetic/raw/develop/Lab3/NASA_access_log_Jul95
+          wget -q https://github.com/P-Team-ITMO/LongArithmetic/raw/develop/Lab3/NASA_access_log_Jul95
           ./test.sh
