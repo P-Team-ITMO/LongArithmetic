@@ -1,0 +1,27 @@
+name: Build and test labs
+on:
+  push:
+    branches: 
+    - develop
+    - release/*
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2 
+
+      - name: Run test for a WordCount
+        working-directory: Lab1
+        run: ./test.sh
+        
+      - name: Run test for a LongArithmetic
+        working-directory: Lab2
+        run: ./test.sh
+        
+      - name: Run test for a NasaParser
+        working-directory: Lab3
+        run: ./test.sh
