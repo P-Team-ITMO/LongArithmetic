@@ -13,7 +13,7 @@ function test_parser() {
 	    echo -e "Test \e[33;1m$i \e[32mPASSED\e[0m"
         return 0
     else
-	    echo -e "Test \e[33;1m$i \e[31mFAILED\e[0m [Got: $got, Expected: $4]"
+	    echo -e "Test \e[33;1m$i \e[31mFAILED\e[0m [Got: $got, Expected: $2]"
         return 1
     fi
 }
