@@ -1,5 +1,5 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include <string.h>
 #include <locale.h>
 int errors(int argc, char argv[], char way[])
 {
@@ -10,7 +10,8 @@ int errors(int argc, char argv[], char way[])
 		return 1;
 	}
 	if (strcmp(argv, "-c") != 0 && strcmp(argv, "--bytes") != 0 && strcmp(argv, "-w") != 0 && strcmp(argv, "--words") != 0 && strcmp(argv, "-l") != 0 && strcmp(argv, "--lines") != 0 )
-	{
+    {
+	
 		printf("Ошибка! Введены неправильные аргументы!");
 		return 1;
 	}
@@ -29,19 +30,19 @@ int main(int argc, char *argv[])
 	if (errors(argc, argv[1], argv[2]) == 0)
 	{
 		FILE* file = fopen(argv[2],"r");
-		if (strncmp(argv[1], "-c") == 0 || strncmp(argv[1], "--bytes") == 0)
+		if (strcmp(argv[1], "-c") == 0 || strcmp(argv[1], "--bytes") == 0)
 		{
 			while (fscanf(file, "%c", f) != EOF)
 				bytes++; 
 			printf("%d", bytes);
 		}
-		else if (strncmp(argv[1], "-w") == 0 || strncmp(argv[1], "--words") == 0)
+		else if (strcmp(argv[1], "-w") == 0 || strcmp(argv[1], "--words") == 0)
 		{
 			while (fscanf(file, "%s", f) != EOF)
 				words++;
 			printf("%d", words);
 		}
-		else if (strncmp(argv[1], "-l") == 0 || strncmp(argv[1], "--lines") == 0)
+		else if (strcmp(argv[1], "-l") == 0 || strcmp(argv[1], "--lines") == 0)
 		{
 			while (fgets(f,10000,file)!=NULL)
 				lines++;
