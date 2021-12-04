@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 
 echo Building NasaParser...
 if ! gcc main.c; then 

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 echo Building WordCount...
 if ! gcc main.c; then 
 	echo -e "Build \e[31;1mFailed\e[0m. \e[33mExiting...\e[0m"

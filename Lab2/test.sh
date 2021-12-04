@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 
 echo Building LongArithmetic...
 if ! gcc Lab2.c; then 
