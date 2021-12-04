@@ -20,7 +20,7 @@ echo -n "Check for: "
 [[ $CHECK_BYTES = true ]] && echo -n "bytes "
 [[ $CHECK_LINES = true ]] && echo -n "lines"
 echo ""
-
+exit_code=0
 i=0
 for testfile in tests/test?.txt; do
 	passed=true
@@ -50,6 +50,8 @@ for testfile in tests/test?.txt; do
 				echo -ne "Lines got: $lines, Expected: ${LINES_EXPECTED[$i]}; "
 			fi
 		echo -e "\b\b  \b\b]"
+        exit_code=1
 	fi
 	i=$(($i + 1))
 done
+exit $exit_code

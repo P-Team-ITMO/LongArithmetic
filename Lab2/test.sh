@@ -6,7 +6,7 @@ if ! gcc Lab2.c; then
     exit 1
 fi
 i=1
-
+exit_code=0
 function test_arithmectic() {
     got=$(./a.out $1 $2 $3)
     if [[ $got -eq $4 ]]; then
@@ -18,17 +18,18 @@ function test_arithmectic() {
     fi
 }
 
-test_arithmectic 3 + 5 8
+test_arithmectic 3 + 5 8 || exit_code=1
 i=$(($i + 1))
-test_arithmectic 20 - 10 10
+test_arithmectic 20 - 10 10 || exit_code=1
 i=$(($i + 1))
-test_arithmectic 5 - 5 0
+test_arithmectic 5 - 5 0 || exit_code=1
 i=$(($i + 1))
-test_arithmectic 3 / 5 0
+test_arithmectic 3 / 5 0 || exit_code=1
 i=$(($i + 1))
-test_arithmectic 10 . 4234542 42345420
+test_arithmectic 10 . 4234542 42345420 || exit_code=1
 i=$(($i + 1))
-test_arithmectic 256 / 64 4
+test_arithmectic 256 / 64 4 || exit_code=1
 i=$(($i + 1))
-test_arithmectic 7 . 8 56
+test_arithmectic 7 . 8 56 || exit_code=1
 i=$(($i + 1))
+exit $exit_code
