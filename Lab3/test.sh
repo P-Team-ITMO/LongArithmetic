@@ -8,8 +8,8 @@ fi
 i=1
 exit_code=0
 function test_parser() {
-    got=$(./a.out $1 $2 | grep queries | cut -d' ' -f8)
-    if [[ $got -eq $3 ]]; then
+    got=$(./a.out NASA_access_log_Jul95 $1 | grep queries | cut -d' ' -f8)
+    if [[ $got -eq $2 ]]; then
 	    echo -e "Test \e[33;1m$i \e[32mPASSED\e[0m"
         return 0
     else
@@ -20,13 +20,19 @@ function test_parser() {
 
 test_parser 1 38 || exit_code=1
 i=$(($i + 1))
+
+test_parser 10 97 || exit_code=1
+i=$(($i + 1))
+
 test_parser 2 45 || exit_code=1
 i=$(($i + 1))
-test_parser 4 68 || exit_code=1
-i=$(($i + 1))
-test_parser 8 84 || exit_code=1
-i=$(($i + 1))
+
 test_parser 100 630 || exit_code=1
+i=$(($i + 1))
+
+test_parser 1000 4740 || exit_code=1
+
+
 
 exit $exit_code
 
